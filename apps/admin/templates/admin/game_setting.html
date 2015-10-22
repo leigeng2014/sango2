@@ -1,0 +1,59 @@
+{% extends "admin/base.html" %}
+{% block head %}
+<link rel="stylesheet" href="../../../admin/js/bootstrap/dist/css/bootstrap.min.css" />
+{% endblock head %}
+
+{% block main %}
+<div class="panel panel-primary">
+    <div class="panel-body">
+        <a href="?config_name=subareas_conf" style="color:blue;font-size:14px;">分区配置</a>&nbsp;<span style="color:grey;font-size:1.3em;">|</span>
+        {% for config in game_config_name_list %}
+            {% if forloop.last %}
+                <a href="?config_name={{ config.0 }}" {% if config.0 == config_name %}style="color:red;font-size:14px;"{%else%}style="color:blue;font-size:14px;" {% endif %}>{{ config.1 }}</a>
+            {% else %}
+                <a href="?config_name={{ config.0 }}" {% if config.0 == config_name %}style="color:red;font-size:14px;"{%else%}style="color:blue;font-size:14px;" {% endif %}>{{ config.1 }}</a>&nbsp;<span style="color:grey;font-size:1.3em;">|</span>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+<div id="report">
+	{% if saved %}
+	<span style="color: red">保存成功</span>
+	{% endif %}
+    {% if config_name %}
+        <div class="alert alert-danger hide">你提交的设置有问题喔，没有成功保存设置：&nbsp;<span class="error-message"></span></div>
+        <form id='settings_form' action="/admin/game_setting/?config_name={{ config_name }}" method="post" enctype="multipart/form-data">{{ config_name }}
+	        <h4 style="font-size:14px;">正在修改：<span style="color: red">{{ config_title }}</span></h4>   
+	        <textarea name="config_value" class="hide">{{ config_value }}</textarea>
+	        <div id="ace-editor" style="width:90%;height:500px;font-size:12px;border:1px solid black;">{{ config_value }}</div>
+	        <br /><input type="submit" id="submit_game_settings" value="提交" />
+        </form>
+	{% endif %}
+</div>
+<script type="text/javascript" src="../../../admin/js/jquery/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../../../admin/js/ace/ace.js"></script>
+<script type="text/javascript" src="../../../admin/js/ace/theme-github.js"></script>
+<script type="text/javascript" src="../../../admin/js/ace/mode-python.js"></script>
+<script type="text/javascript">
+    if($('textarea[name="config_value"]')) {
+        var $textarea = $('textarea[name="config_value"]');
+        var $editor = $('#ace-editor');
+        var editor = ace.edit('ace-editor');
+        editor.setTheme("ace/theme/github");
+
+        var PyMode = require("ace/mode/python").Mode;
+        editor.getSession().setMode(new PyMode());
+
+        editor.getSession().setTabSize(4);
+        editor.getSession().setUseSoftTabs(true);
+        editor.getSession().on('change', function() {
+        });
+
+        $('#settings_form').submit(function(e) {
+        	  $textarea.val(editor.getSession().getValue());
+            var $form = $(this);
+            var config_value = $textarea.val();
+        });
+    }
+</script>
+{% endblock main %}

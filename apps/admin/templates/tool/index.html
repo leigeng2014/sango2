@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>查询</title>
+</head>
+<body>
+    <form action="../tool/gacha/" method="post">
+    <h3>求将测试</h3>
+    <span>测试次数：<input name="count" type="text" size="6" maxlength="6"/></span>
+    <span>测试类型：
+    <select name="type">
+        <option value="charge_rate">单次抽神将</option>
+        <option value="multi_rate">10连抽神将</option>
+    </select>
+    </span>
+    <span>排序方式：
+    <select name="order">
+        <option value="star">星级</option>
+        <option value="ctype">武将属性</option>
+        <option value="count">出现次数</option>
+        <option value="category">武将类型</option>
+        <option value="lv">武将等级</option>
+    </select>
+    </span>
+    <input type="submit" value="开始求将" />
+    </form>
+    <hr />
+</body>
+</html>

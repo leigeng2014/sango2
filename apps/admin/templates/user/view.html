@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+{% load filters %}
+<html>
+<head>
+    <title>编辑用户信息</title>
+    <style type="text/css">
+      tr.odd {background-color:#c7dccc;color:#376400;}
+      tr.even {background-color:white;}
+    </style>
+</head>
+<body>
+    {% ifequal status 1 %}
+        <div class="success">
+        <span style="color:red;">保存成功</span>
+        </div>
+    {% endifequal %}
+    <form method="post">
+        <div>
+           用户ID:&nbsp;{{ user.uid }} <a href="javascript:window.location = window.location">刷新</a>
+        </div>
+        <hr/>
+        <table>
+            <tr>
+                <td>用户名</td>
+                <td><span style="color:red;">{{ user.username }}</span></td>
+                <td>角色</td>
+                <td><span style="color:red;">{{ user_card_obj.cid }}(战士)</span></td>
+                <td>性别</td>
+                <td><span style="color:red;">{% if user %}男{% else %}女{% endif %}</span></td>
+                <td>
+                    安装时间
+                </td>
+                <td>
+                    <span style="color:red;">{{ add_time }}</span>
+                </td>
+                <td>
+                    最后登录时间
+                </td>
+                <td>
+                    <span style="color:red;">{{ last_login_time}}</span>
+                </td>
+                <td>
+                    登录记录
+                </td>
+                <td>
+                    <select name="login_record" size="1">
+                    {% for login_date in login_record%}
+                    <option>{{login_date}}</option>
+                    {% endfor %}
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    级别
+                </td>
+                <td>
+                    <span style="color:red;">{{ property_info.lv }}</span>
+                </td>
+                <td>
+                    经验
+                </td>
+                <td>
+                    <span style="color:red;">{{ property_info.exp }}</span>
+                </td>
+                <td>
+                    铜钱
+                </td>
+                <td>
+                    <span style="color:red;">{{ property_info.coin }}</span>
+                </td>
+                <td>
+                    钻石
+                </td>
+                <td>
+                    <span style="color:red;">{{ property_info.diamond }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <label for="state">账号状态</label>
+                </td>
+                <td>
+                    <select id="state" name="state">
+                        <option value="0" {% if not user.in_frozen %}selected="selected"{% endif %}>正常</option>
+                        <option value="1" {% if user.in_frozen %}selected="selected"{% endif %}>冻结</option>
+                    </select>
+                </td>
+                <td>{% if user.in_frozen and not user.frozen and user.baseinfo.unfroze_time %}解封时间:{{user.baseinfo.unfroze_time|timestamp_toString}}{% endif %}</td>
+                <td>
+                    <input type="submit" value="更改用户账号状态"/>
+                </td>
+                <td>
+                    当前战场进度：
+                </td>
+                <td>
+                    <span style="color:red;">{{dungeon_info.max_floor_id}}</span>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <hr />
+    <!--军队信息 -->
+    <h3>角色信息</h3>
+    <p>属性信息</p>
+    <table  border="1px" cellspacing="0px" bordercolor="gray" style="border-collapse:collapse"> 
+        <tr> 
+            <td>耐力</td>     
+            <td>力量</td>    
+            <td>智力</td>   
+            <td>敏捷</td> 
+            <td>hp</td>     
+            <td>物防</td>    
+            <td>魔防</td>   
+            <td>韧性</td>  
+            <td>mp</td>     
+            <td>mp恢复力</td>
+            <td>暴击</td>    
+            <td>命中</td>   
+            <td>闪避</td>  
+            <td>最小伤害</td>     
+            <td>最大伤害</td> 
+        </tr>
+        <tr>
+            <td>{{ card_obj.vitality }}</td>
+            <td>{{ card_obj.strength }}</td>
+            <td>{{ card_obj.stealth }}</td>
+            <td>{{ card_obj.intelligence }}</td>            
+            <td>{{ card_obj.hp }}</td>
+            <td>{{ card_obj.physDef }}</td>
+            <td>{{ card_obj.magDef }}</td>
+            <td>{{ card_obj.durability }}</td>
+            <td>{{ card_obj.mp }}</td>
+            <td>{{ card_obj.mpRecover }}</td>
+            <td>{{ card_obj.critical }}</td>
+            <td>{{ card_obj.invasion }}</td>
+            <td>{{ card_obj.evasion }}</td>
+            <td>{{ card_obj.minDamage }}</td>
+            <td>{{ card_obj.maxDamage }}</td>
+        </tr>
+    </table>
+    <p>装备信息</p>
+    <table  border="1px" cellspacing="0px" bordercolor="gray" style="border-collapse:collapse"> 
+        <tr>
+            <td>主手武器</td>     
+            <td>副手武器</td>    
+            <td>头盔</td>   
+            <td>项链</td> 
+            <td>胸甲</td>     
+            <td>腰带</td>    
+            <td>手套</td>   
+            <td>手腕</td>  
+            <td>裤子</td>     
+            <td>鞋子</td>
+        </tr>
+        <tr>
+            <td>{{ user_card_obj.equipments.mainWeap }}</td>
+            <td>{{ user_card_obj.equipments.secWeap }}</td>
+            <td>{{ user_card_obj.equipments.helmut }}</td>
+            <td>{{ user_card_obj.equipments.necklace }}</td>            
+            <td>{{ user_card_obj.equipments.armor }}</td>
+            <td>{{ user_card_obj.equipments.belt }}</td>
+            <td>{{ user_card_obj.equipments.glove }}</td>
+            <td>{{ user_card_obj.equipments.amulet }}</td>
+            <td>{{ user_card_obj.equipments.pants }}</td>
+            <td>{{ user_card_obj.equipments.shoes }}</td>          
+        </tr>
+    </table>
+    <hr/>
+    <!-- 佣兵信息 -->
+    <h3>佣兵信息1</h3>
+    <table border="1px" cellspacing="0px" bordercolor="gray" style="border-collapse:collapse">
+    </table>
+    <!-- 道具信息 -->
+    <h3>所有的装备信息</h3>
+    <table border="1px" cellspacing="0px" bordercolor="gray" style="border-collapse:collapse">
+        <tr>   
+            <td>装备id</td>    
+            <td>装备eid</td> 
+            <td>装备品质</td> 
+            <td>装备等级</td> 
+            <td>装备强化等级</td> 
+            <td>装备主属性</td> 
+            <td>装备副属性</td> 
+            <td>宝石镶嵌</td> 
+            <td>是否被装备</td> 
+        </tr>
+        {% for k,v in user_equipments.items %}
+            <tr class="{% cycle 'odd' 'even'%}">   
+                <td>{{ k }}</td>     
+                <td>{{ v.eid }}</td> 
+                <td>{{ v.quality}}</td> 
+                <td>{{ v.lv }}</td>     
+                <td>{{ v.minilv }}</td> 
+                <td>{{ v.main_attr}}</td> 
+                <td>{{ v.vice_attr }}</td>     
+                <td>{{ v.gem_hole }}</td> 
+                <td>{% if v.put_on %}<font color="red">是</font>{% else %}否{% endif %}</td> 
+            </tr>
+        {% empty %}
+            没有装备
+        {% endfor %}
+    </table>
+</body>
+</html>
