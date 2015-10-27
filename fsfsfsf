@@ -1,0 +1,36 @@
+commit 1646ca3bfaac0907eff96cd8d87a6c1145de17fb
+Merge: 3aa3baa 537437c
+Author: leigeng <519087819@qq.com>
+Date:   Thu Oct 22 14:54:46 2015 +0800
+
+    conflict fixed
+
+commit 3aa3baaa4286f7987170dd881f7de01c1eeba27b
+Author: leigeng <519087819@qq.com>
+Date:   Thu Oct 22 14:51:58 2015 +0800
+
+    &simple
+
+commit 537437c35f4d1f242b30ee7075db95416f563db0
+Author: leigeng <519087819@qq.com>
+Date:   Thu Oct 22 14:47:12 2015 +0800
+
+    AND simple
+
+commit fd8fb38a0de5c17873351bbb1558d629a654eb0c
+Author: leigeng <519087819@qq.com>
+Date:   Thu Oct 22 14:41:44 2015 +0800
+
+    branch test
+
+commit c66cd36cdc72ba87705f47f6a1483181c8b165c7
+Author: leigeng <519087819@qq.com>
+Date:   Thu Oct 22 14:15:25 2015 +0800
+
+    sango2 first brunch
+
+commit 081d108166f381ae650d2ab4b0c9bc274af3987b
+Author: leigeng2014 <895949194@qq.com>
+Date:   Thu Oct 22 14:03:55 2015 +0800
+
+    Initial commit
