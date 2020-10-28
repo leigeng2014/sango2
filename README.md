@@ -18,4 +18,4 @@ redis
 
 #### 启动方式
 
-python app/
+python app/manage.py runserver
