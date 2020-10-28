@@ -6,8 +6,11 @@
 
 #### 软件架构
 python2.7.15
+
 django1.3.1
+
 mercache
+
 redis
 
 
